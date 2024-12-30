@@ -4,12 +4,13 @@
 #include <Arduino.h>
 #include "../../config/ConfigSystem.h"
 #include "../../config/entrys/ByteEntry.h"
+#include "../../config/MemoryOffsets.h"
 
 #define PT_AMT 20
 
 namespace PointsAnimation {
 
-    ByteEntry* slow = ConfigSystem::mkByte(4, "cfg/pts/slow", 30);
+    ByteEntry* slow = ConfigSystem::mkByte(MEM_OFFSET_CFG_POINTS_SLOW, "cfg/pts/slow", 30);
 
     typedef struct {
         int perc;

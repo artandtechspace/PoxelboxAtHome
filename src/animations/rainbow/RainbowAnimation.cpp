@@ -3,13 +3,14 @@
 #include "./RainbowAnimation.h"
 #include <FastLED.h>
 #include "../../poxelbox/Poxelbox.h"
+#include "../../config/MemoryOffsets.h"
 
 namespace RainbowAnimation
 {
 
-    ByteEntry *speed = ConfigSystem::mkByte(0, "cfg/rbow/speed", 100, 10);
-    ByteEntry *offsetX = ConfigSystem::mkByte(2, "cfg/rbow/offsx", 20);
-    ByteEntry *offsetY = ConfigSystem::mkByte(3, "cfg/rbow/offsy", 40);
+    ByteEntry *speed = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_SPEED, "cfg/rbow/speed", 100, 10);
+    ByteEntry *offsetX = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_OFFSET_X, "cfg/rbow/offsx", 20);
+    ByteEntry *offsetY = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_OFFSET_Y, "cfg/rbow/offsy", 40);
 
     void loop()
     {
