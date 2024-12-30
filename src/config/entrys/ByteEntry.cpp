@@ -43,6 +43,13 @@ void ByteEntry::save(char* msg) {
     else if(byteValue > maxConstr)
         byteValue = maxConstr;
 
+    #if 0
+        Serial.print("[ByteEntry::change]: ");
+        Serial.print(topic);
+        Serial.print(" = ");
+        Serial.println(value);
+    #endif
+
     // Converts the value
     value = static_cast<byte>(byteValue);
 

@@ -7,8 +7,8 @@
 
 namespace MqttHandler
 {
-
-    const char basePath[] = "ats/smart/pb/";
+    // Base mqtt path to access all functionality of this device
+    String basePath = "ats/smart/pb/";
     
     const char* ssid = WIFI_SSID;
     const char* pass = WIFI_PASS;
@@ -87,13 +87,21 @@ namespace MqttHandler
     }
 
     void onMessage(int msgSize) {
-        auto topic = mqttClient.messageTopic().c_str();
+        auto topic = mqttClient.messageTopic();
+
+        if(!topic.startsWith(basePath)) return;
+            topic = topic.substring(basePath.length());
+
+        auto topicCStr = topic.c_str();
+
         auto base = ConfigSystem::getFirstLLEntry();
 
         while(1){
             if(base == nullptr) return;
 
-            if(strcmp(base->getTopic(), topic)) break;
+            if(strcmp(base->getTopic(), topicCStr) == 0) break;
+
+            base = base->next;
         }
 
         // Allocate memory for the message

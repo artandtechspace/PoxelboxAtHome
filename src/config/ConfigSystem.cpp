@@ -6,8 +6,6 @@ namespace ConfigSystem {
     BaseEntry* first = nullptr;
 
     void initialize(){
-        first = nullptr;
-
         Serial.println("[CfgSys::initialize]: Loading Config-Entrys");
 
         // Iterates over each known config entry and initializes it

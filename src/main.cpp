@@ -2,6 +2,7 @@
 #include "./config/ConfigSystem.h"
 #include "mqtt/MqttHandler.h"
 #include <EEPROM.h>
+#include "poxelbox/Poxelbox.h"
 
 #include "animations/rainbow/RainbowAnimation.h"
 
@@ -40,6 +41,8 @@ void setup() {
   ConfigSystem::initialize();
 
   MqttHandler::setup();
+
+  Poxelbox::setup();
 }
 
 void loop() {
