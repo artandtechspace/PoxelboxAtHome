@@ -24,7 +24,7 @@ Animation animations[] = {
 byte animationAmount = sizeof(animations)/sizeof(Animation);
 
 // Entry that holds the selected animation type
-ByteEntry* selectedAnimation = ConfigSystem::mkByte(1,"ats/smart/pb/type", 0, 0, animationAmount-1, [](byte idx) -> void {
+ByteEntry* selectedAnimation = ConfigSystem::mkByte(1,"type", 0, 0, animationAmount-1, [](byte idx) -> void {
   animations[idx].setup();
 });
 
@@ -47,7 +47,8 @@ void loop() {
   // Maintains the mqtt-connection
   MqttHandler::loop();
 
-  delay(1000);
+  // Inserts a least a very minimal delay
+  delay(10);
 
   // Runs the current animation
   animations[selectedAnimation->get()].loop();

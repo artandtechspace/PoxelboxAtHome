@@ -7,6 +7,8 @@
 
 namespace MqttHandler
 {
+
+    const char basePath[] = "ats/smart/pb/";
     
     const char* ssid = WIFI_SSID;
     const char* pass = WIFI_PASS;
@@ -55,7 +57,7 @@ namespace MqttHandler
         auto base = ConfigSystem::getFirstLLEntry();
 
         while(base != nullptr){
-            mqttClient.subscribe(base->getTopic());
+            mqttClient.subscribe(String(basePath)+String(base->getTopic()));
             Serial.print("\t[Topic::registered]");
             Serial.println(base->getTopic());
             base = base->next;

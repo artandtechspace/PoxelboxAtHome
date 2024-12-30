@@ -4,7 +4,7 @@
 
 namespace RainbowAnimation {
     
-    ByteEntry* speed = ConfigSystem::mkByte(0,"ats/smart/pb/cfg/rbow/speed",10);
+    ByteEntry* speed = ConfigSystem::mkByte(0,"cfg/rbow/speed",10);
 
     void setup(){
         Serial.print("[Rainbow-Setup] ");
