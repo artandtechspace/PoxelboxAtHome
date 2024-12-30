@@ -5,6 +5,8 @@
 #include "poxelbox/Poxelbox.h"
 
 #include "animations/rainbow/RainbowAnimation.h"
+#include "animations/points/PointsAnimation.h"
+
 
 #define EEPROM_SIZE 20
 
@@ -16,9 +18,8 @@ struct Animation {
 
 // Registered animations
 Animation animations[] = {
-  {RainbowAnimation::setup, RainbowAnimation::loop},
-  {RainbowAnimation::setup, RainbowAnimation::loop},
-  {RainbowAnimation::setup, RainbowAnimation::loop}
+  {nullptr, RainbowAnimation::loop},
+  {PointsAnimation::setup, PointsAnimation::loop}
 };
 
 // How many animations are registered
@@ -26,7 +27,8 @@ byte animationAmount = sizeof(animations)/sizeof(Animation);
 
 // Entry that holds the selected animation type
 ByteEntry* selectedAnimation = ConfigSystem::mkByte(1,"type", 0, 0, animationAmount-1, [](byte idx) -> void {
-  animations[idx].setup();
+  if(animations[idx].setup != nullptr)
+    animations[idx].setup();
 });
 
 

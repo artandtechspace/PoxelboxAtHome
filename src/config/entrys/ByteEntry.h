@@ -13,6 +13,7 @@ public:
     ByteEntry(int offset, const char* mqttTopic, byte defaultValue, byte min, byte max, void (*onChange)(byte value));
 
     byte get();
+    void writeMessage(MqttClient* client);
     virtual void save(char* msg) override;
     void load() override;
 };

@@ -61,3 +61,7 @@ void ByteEntry::save(char* msg) {
     EEPROM.write(memoryOffset, value);
     EEPROM.commit();
 }
+
+void ByteEntry::writeMessage(MqttClient* client){
+    client->print(value);
+}

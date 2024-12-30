@@ -57,6 +57,14 @@ namespace MqttHandler
         auto base = ConfigSystem::getFirstLLEntry();
 
         while(base != nullptr){
+            String actualTopic = String(basePath)+String(base->getTopic());
+
+            // Publishes the default
+            mqttClient.beginMessage(actualTopic);
+            base->writeMessage(&mqttClient);
+            mqttClient.endMessage();
+
+            // Subscribes the the topic
             mqttClient.subscribe(String(basePath)+String(base->getTopic()));
             Serial.print("\t[Topic::registered]");
             Serial.println(base->getTopic());

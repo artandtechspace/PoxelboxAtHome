@@ -11,12 +11,6 @@ namespace RainbowAnimation
     ByteEntry *offsetX = ConfigSystem::mkByte(2, "cfg/rbow/offsx", 20);
     ByteEntry *offsetY = ConfigSystem::mkByte(3, "cfg/rbow/offsy", 40);
 
-    void setup()
-    {
-        Serial.print("[Rainbow-Setup] ");
-        Serial.println(speed->get());
-    }
-
     void loop()
     {
         static long next = 0;
