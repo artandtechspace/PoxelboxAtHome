@@ -9,7 +9,7 @@
 
 namespace RandomAnimation {
 
-    ByteEntry* slow = ConfigSystem::mkByte(MEM_OFFSET_CFG_RANDOM_SLOW, "cfg/rdm/slow", 30);
+    ByteEntry* slow = ConfigSystem::mkByte(MEM_OFFSET_CFG_RANDOM_SLOW, "cfg/rdm/slow");
 
     void loop() {
         static long next = 0;

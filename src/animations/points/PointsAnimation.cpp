@@ -10,7 +10,7 @@
 
 namespace PointsAnimation {
 
-    ByteEntry* slow = ConfigSystem::mkByte(MEM_OFFSET_CFG_POINTS_SLOW, "cfg/pts/slow", 30);
+    ByteEntry* slow = ConfigSystem::mkByte(MEM_OFFSET_CFG_POINTS_SLOW, "cfg/pts/slow");
 
     typedef struct {
         int perc;

@@ -2,10 +2,10 @@
 #include <MqttClient.h>
 #include <EEPROM.h>
 
-ByteEntry::ByteEntry(int offset, const char* mqttTopic, byte defaultValue, byte min, byte max, void (*onChange)(byte value)) {
+ByteEntry::ByteEntry(int offset, const char* mqttTopic, byte min, byte max, void (*onChange)(byte value)) {
     memoryOffset = offset;
     topic = mqttTopic;
-    value = defaultValue;
+    value = 0;
     next = nullptr;
     minConstr = min;
     maxConstr = max;

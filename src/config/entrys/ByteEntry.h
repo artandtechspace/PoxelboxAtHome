@@ -10,7 +10,7 @@ protected:
     void (*changeCallback)(byte value);
 
 public:
-    ByteEntry(int offset, const char* mqttTopic, byte defaultValue, byte min, byte max, void (*onChange)(byte value));
+    ByteEntry(int offset, const char* mqttTopic, byte min, byte max, void (*onChange)(byte value));
 
     byte get();
     void writeMessage(MqttClient* client);

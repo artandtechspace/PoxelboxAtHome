@@ -31,7 +31,7 @@ namespace Poxelbox {
         Serial.println("[Poxelbox::setup]: Starting FastLed");
 
         // Setups fastled-library
-        FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, LED_AMT);
+        FastLED.addLeds<WS2812B, LED_PIN, RGB>(leds, LED_AMT);
     }
 
 }

@@ -18,9 +18,9 @@ namespace ConfigSystem {
         }
     }
 
-    ByteEntry* mkByte(int offset, const char* mqttTopic, byte value, byte min, byte max, void (*onChange)(byte value)) {
+    ByteEntry* mkByte(int offset, const char* mqttTopic, byte min, byte max, void (*onChange)(byte value)) {
 
-        auto obj = new ByteEntry(offset, mqttTopic, value, min, max, onChange);
+        auto obj = new ByteEntry(offset, mqttTopic, min, max, onChange);
 
         onNewEntry(obj);
 

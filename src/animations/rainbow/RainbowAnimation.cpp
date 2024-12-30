@@ -8,9 +8,9 @@
 namespace RainbowAnimation
 {
 
-    ByteEntry *speed = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_SPEED, "cfg/rbow/speed", 100, 10);
-    ByteEntry *offsetX = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_OFFSET_X, "cfg/rbow/offsx", 20);
-    ByteEntry *offsetY = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_OFFSET_Y, "cfg/rbow/offsy", 40);
+    ByteEntry *speed = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_SPEED, "cfg/rbow/speed", 10);
+    ByteEntry *offsetX = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_OFFSET_X, "cfg/rbow/offsx");
+    ByteEntry *offsetY = ConfigSystem::mkByte(MEM_OFFSET_CFG_RAINBOW_OFFSET_Y, "cfg/rbow/offsy");
 
     void loop()
     {

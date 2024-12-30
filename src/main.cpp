@@ -3,12 +3,14 @@
 #include "mqtt/MqttHandler.h"
 #include <EEPROM.h>
 #include "poxelbox/Poxelbox.h"
+#include "main.h"
 #include "config/MemoryOffsets.h"
 
 #include "animations/rainbow/RainbowAnimation.h"
 #include "animations/points/PointsAnimation.h"
 #include "animations/off/OffAnimation.h"
 #include "animations/random/RandomAnimation.h"
+#include "animations/singlecolor/SingleColorAnimation.h"
 
 
 #define EEPROM_SIZE 20
@@ -25,13 +27,14 @@ Animation animations[] = {
   {PointsAnimation::setup, PointsAnimation::loop},
   {OffAnimation::setup, OffAnimation::loop},
   {nullptr, RandomAnimation::loop},
+  {SingleColorAnimation::setup, SingleColorAnimation::loop},
 };
 
 // How many animations are registered
 byte animationAmount = sizeof(animations)/sizeof(Animation);
 
 // Entry that holds the selected animation type
-ByteEntry* selectedAnimation = ConfigSystem::mkByte(MEM_OFFSET_TYPE, "type", 0, 0, animationAmount-1, [](byte idx) -> void {
+ByteEntry* selectedAnimation = ConfigSystem::mkByte(MEM_OFFSET_TYPE, "type", 0, animationAmount-1, [](byte idx) -> void {
   if(animations[idx].setup != nullptr)
     animations[idx].setup();
 });
@@ -50,6 +53,9 @@ void setup() {
   MqttHandler::setup();
 
   Poxelbox::setup();
+
+  // Runs the current animation
+  animations[selectedAnimation->get()].setup();
 }
 
 void loop() {
