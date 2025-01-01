@@ -9,7 +9,7 @@ namespace ConfigSystem {
     void onNewEntry(BaseEntry* ptr);
 
     // Returns a new instance of a byte entry
-    ByteEntry* mkByte(int offset, const char* mqttTopic, byte min = 0, byte max = 255, void (*onChange)(byte value) = nullptr);
+    ByteEntry* mkByte(int offset, const char* mqttTopic, byte min = 0, byte max = 255, void (*onChange)(byte from, byte to) = nullptr);
 
     // Initializes the config system
     void initialize();

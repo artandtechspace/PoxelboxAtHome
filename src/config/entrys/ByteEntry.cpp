@@ -2,7 +2,7 @@
 #include <MqttClient.h>
 #include <EEPROM.h>
 
-ByteEntry::ByteEntry(int offset, const char* mqttTopic, byte min, byte max, void (*onChange)(byte value)) {
+ByteEntry::ByteEntry(int offset, const char* mqttTopic, byte min, byte max, void (*onChange)(byte from, byte to)) {
     memoryOffset = offset;
     topic = mqttTopic;
     value = 0;
@@ -11,6 +11,10 @@ ByteEntry::ByteEntry(int offset, const char* mqttTopic, byte min, byte max, void
     maxConstr = max;
     changeCallback = onChange;
 };
+
+void ByteEntry::setChangeListener(void (*onChange)(byte from, byte to)){
+    changeCallback = onChange;
+}
 
 byte ByteEntry::get(){
     return value;
@@ -26,10 +30,6 @@ void ByteEntry::load() {
         value = minConstr;
     else if(value > maxConstr)
         value = maxConstr;
-
-    // Fires the change callback
-    if(changeCallback != nullptr)
-        changeCallback(value);
 }
 
 void ByteEntry::save(char* msg) {
@@ -43,19 +43,14 @@ void ByteEntry::save(char* msg) {
     else if(byteValue > maxConstr)
         byteValue = maxConstr;
 
-    #if 0
-        Serial.print("[ByteEntry::change]: ");
-        Serial.print(topic);
-        Serial.print(" = ");
-        Serial.println(value);
-    #endif
-
     // Converts the value
-    value = static_cast<byte>(byteValue);
+    byte newValue = static_cast<byte>(byteValue);
 
     // Fires the callback (if required)
     if(changeCallback != nullptr)
-        changeCallback(value);
+        changeCallback(value, newValue);
+
+    value = newValue;
 
     // Writes the new value to eeprom
     EEPROM.write(memoryOffset, value);

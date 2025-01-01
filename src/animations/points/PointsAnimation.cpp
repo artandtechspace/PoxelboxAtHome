@@ -5,6 +5,8 @@
 #include "../../config/ConfigSystem.h"
 #include "../../config/entrys/ByteEntry.h"
 #include "../../config/MemoryOffsets.h"
+#include "../../globalconfig/GlobalConfig.h"
+#include "./PointsAnimation.h"
 
 #define PT_AMT 20
 
@@ -12,24 +14,19 @@ namespace PointsAnimation {
 
     ByteEntry* slow = ConfigSystem::mkByte(MEM_OFFSET_CFG_POINTS_SLOW, "cfg/pts/slow");
 
-    typedef struct {
-        int perc;
-        int x;
-        int y;
-        int clr;
-    } Point;
-
     // List of points
     Point points[PT_AMT];
 
+    void resetPoint(Point* p) {
+        p->perc = (float)random(20,100) / 100.0;
+        p->x = random(0,BOX_SIZE_X * BOX_AMT_X);
+        p->y = random(0,4);
+        p->clr = random(0,255);
+    }
+
     void setup() {
-        for(int i=0;i<PT_AMT; i++){
-            Point* p = &points[i];
-            p->perc = random(60,255);
-            p->x = random(0,BOX_SIZE_X * BOX_AMT_X);
-            p->y = random(0,4);
-            p->clr = random(0,255);
-        }
+        for(int i=0;i<PT_AMT; i++)
+            resetPoint(&points[i]);
     }
 
     void loop() {
@@ -43,25 +40,21 @@ namespace PointsAnimation {
 
             Point* p = &points[i];
 
-            p->perc++;
+            p->perc += 0.01;
 
             #if 0
-                Serial.println("[Points]: i="+String(i)+" perc="+String(p->perc));
+                Serial.println("[Points]: i="+String(i)+" perc="+String(p->perc)+" brigh="+GlobalConfig::globalBrightness->get());
             #endif
 
-            if(p->perc >= 255){
+            if(p->perc >= 1){
                 Poxelbox::leds[Poxelbox::getPBId(p->x,p->y)] = 0;
-                
-                p->perc = random(60,255);
-                p->x = random(0,BOX_SIZE_X * BOX_AMT_X);
-                p->y = random(0,4);
-                p->clr = random(0,255);
+                resetPoint(p);
             }
 
             Poxelbox::leds[Poxelbox::getPBId(p->x,p->y)] = CHSV(
                 p->clr,
                 255,
-                p->perc
+                p->perc * GlobalConfig::globalBrightness->get()
             );
         }
 

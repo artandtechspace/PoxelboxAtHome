@@ -4,6 +4,7 @@
 #include <FastLED.h>
 #include "../../poxelbox/Poxelbox.h"
 #include "../../config/MemoryOffsets.h"
+#include "../../globalconfig/GlobalConfig.h"
 
 namespace RainbowAnimation
 {
@@ -29,7 +30,7 @@ namespace RainbowAnimation
                 Poxelbox::leds[Poxelbox::getPBId(x, y)] = CHSV(
                     255 * perc,
                     255,
-                    255);
+                    GlobalConfig::globalBrightness->get());
             }
         }
         FastLED.show();

@@ -5,6 +5,7 @@
 #include "../../config/ConfigSystem.h"
 #include "../../config/MemoryOffsets.h"
 #include "../../config/entrys/ByteEntry.h"
+#include "../../globalconfig/GlobalConfig.h"
 
 
 namespace RandomAnimation {
@@ -26,7 +27,7 @@ namespace RandomAnimation {
             Poxelbox::leds[random(0,LED_AMT)] = CHSV(
                 random(0,255),
                 255,
-                255
+                GlobalConfig::globalBrightness->get()
             );
         }
         FastLED.show();
