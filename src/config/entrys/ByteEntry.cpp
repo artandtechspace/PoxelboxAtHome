@@ -53,7 +53,7 @@ void ByteEntry::save(char* msg) {
     value = newValue;
 
     // Writes the new value to eeprom
-    EEPROM.write(memoryOffset, value);
+    EEPROM.writeByte(memoryOffset, value);
     EEPROM.commit();
 }
 

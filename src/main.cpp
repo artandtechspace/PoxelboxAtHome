@@ -7,13 +7,17 @@
 
 #include "animations/AnimationSystem.h"
 
-#define EEPROM_SIZE 20
+#define EEPROM_SIZE 250
 
 void setup() {
-  // Setups the EEPROM
-  EEPROM.begin(EEPROM_SIZE);
   // Starts the serial interface
   Serial.begin(9600);
+
+  delay(1000);
+
+  // Setups the EEPROM
+  Serial.println("\t\t[EEPROM] EEPROM.begin()");
+  EEPROM.begin(EEPROM_SIZE);
 
   delay(1000);
 

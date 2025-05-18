@@ -2,7 +2,6 @@
 #include <Arduino.h>
 #include "./config/ConfigSystem.h"
 #include "mqtt/MqttHandler.h"
-#include <EEPROM.h>
 #include "poxelbox/Poxelbox.h"
 #include "config/MemoryOffsets.h"
 
@@ -11,6 +10,7 @@
 #include "animations/off/OffAnimation.h"
 #include "animations/random/RandomAnimation.h"
 #include "animations/singlecolor/SingleColorAnimation.h"
+#include "animations/walktext/WalktextAnimation.h"
 
 namespace AnimationSystem {
 
@@ -21,6 +21,7 @@ Animation animations[] = {
   {OffAnimation::setup,         OffAnimation::loop,         nullptr},
   {nullptr,                     RandomAnimation::loop,      nullptr},
   {SingleColorAnimation::setup, SingleColorAnimation::loop, SingleColorAnimation::cleanup},
+  {WaltktextAnimation::setup,   WaltktextAnimation::loop,   nullptr},
 };
 
 // How many animations are registered
@@ -54,7 +55,5 @@ void onAnimationChange(byte idxFrom, byte idxTo){
     if(animations[idxTo].setup != nullptr)
         animations[idxTo].setup();
 }
-
-
 
 }

@@ -12,10 +12,17 @@ namespace ConfigSystem {
         auto current = first;
         while(current != nullptr){
             current->load();
-            Serial.print("\tLoaded ");
-            Serial.println(current->getTopic());
             current = current->next;
         }
+    }
+
+
+    StringEntry* mkString(int offset, int offsetEnd, const char* mqttTopic, void (*changeCallback)()) {
+        auto obj = new StringEntry(offset, offsetEnd, mqttTopic, changeCallback);
+
+        onNewEntry(obj);
+
+        return obj;
     }
 
     ByteEntry* mkByte(int offset, const char* mqttTopic, byte min, byte max, void (*onChange)(byte from, byte to)) {
