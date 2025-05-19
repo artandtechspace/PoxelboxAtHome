@@ -22,6 +22,7 @@ Animation animations[] = {
   {nullptr,                     RandomAnimation::loop,      nullptr},
   {SingleColorAnimation::setup, SingleColorAnimation::loop, SingleColorAnimation::cleanup},
   {WaltktextAnimation::setup,   WaltktextAnimation::loop,   nullptr},
+  {DrivingAnimation::setup,     DrivingAnimation::loop,     nulllptr},
 };
 
 // How many animations are registered
