@@ -7,8 +7,6 @@
 
 #define BOX_AMT_X 25
 
-#define LED_AMT BOX_SIZE_X * BOX_SIZE_Y*BOX_AMT_X
-
 
 namespace Poxelbox {
     extern const int LED_PIN;
