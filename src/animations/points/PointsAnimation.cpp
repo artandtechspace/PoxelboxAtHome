@@ -19,8 +19,8 @@ namespace PointsAnimation {
 
     void resetPoint(Point* p) {
         p->perc = (float)random(20,100) / 100.0;
-        p->x = random(0,BOX_SIZE_X * BOX_AMT_X);
-        p->y = random(0,4);
+        p->x = random(0,WIDTH);
+        p->y = random(0,HEIGHT);
         p->clr = random(0,255);
     }
 
@@ -47,15 +47,15 @@ namespace PointsAnimation {
             #endif
 
             if(p->perc >= 1){
-                Poxelbox::leds[Poxelbox::getPBId(p->x,p->y)] = 0;
+                Poxelbox::setPixel(p->x, p->y, CRGB::Black);
                 resetPoint(p);
             }
 
-            Poxelbox::leds[Poxelbox::getPBId(p->x,p->y)] = CHSV(
+            Poxelbox::setPixel(p->x, p->y, CHSV(
                 p->clr,
                 255,
                 p->perc * GlobalConfig::globalBrightness->get()
-            );
+            ));
         }
 
         FastLED.show();

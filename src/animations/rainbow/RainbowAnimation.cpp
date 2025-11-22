@@ -20,17 +20,18 @@ namespace RainbowAnimation
             return;
         next = millis() + 50;
 
-        for (int y = 0; y < BOX_SIZE_Y; y++)
+        for (int y = 0; y < HEIGHT; y++)
         {
-            for (int x = 0; x < BOX_SIZE_X * BOX_AMT_X; x++)
+            for (int x = 0; x < WIDTH; x++)
             {
 
                 float perc = (float)((millis() + (offsetX->get() * 10) * x + (offsetY->get() * 10) * y) % (speed->get() * 100)) / (float)(speed->get() * 100);
 
-                Poxelbox::leds[Poxelbox::getPBId(x, y)] = CHSV(
+                Poxelbox::setPixel(x, y, CHSV(
                     255 * perc,
                     255,
-                    GlobalConfig::globalBrightness->get());
+                    GlobalConfig::globalBrightness->get()
+                ));
             }
         }
         FastLED.show();

@@ -1,9 +1,12 @@
 #include "Poxelbox.h"
+#include "../globalconfig/GlobalConfig.h"
 
 namespace Poxelbox {
 
+    // Which pin the box uses
     const int LED_PIN = 19;
 
+    // LED-Api
     CRGB leds[LED_AMT];
 
     // Lookup table for the on-box pixel
@@ -14,17 +17,47 @@ namespace Poxelbox {
         { 7, 8, 9}
     };
 
-    int getPBId(int x, int y){
-        // Pre current box
-        int boxX = x/BOX_SIZE_X;
-        int onBoxX = x % BOX_SIZE_X;
-        int lookupId = lookUpTable[y][onBoxX];
+    void setPixel(int index, const CRGB& clr){
+        // Ensure no invalid reads
+        if(index < 0 || index >= LED_AMT){
+            # if 0
+                Serial.println("Bad-Index detected: "+String(index));
+            # endif
+            return;
+        }
 
-        int id = boxX * BOX_SIZE_X * BOX_SIZE_Y + lookupId;
+        leds[index] = clr;
+    };
 
-        //Serial.println("X:"+String(x)+" / "+String(y)+" = "+String(id)+" (LookupId="+String(lookupId)+") (BoxX = "+String(boxX)+") (onBoxX = "+onBoxX+")");
+    void setPixel(int x, int y, const CRGB& clr){
+        const int height = GlobalConfig::poxelboxHeight->get();
 
-        return id;
+        // Gets the box position
+        const int boxX = x / BOX_SIZE_X;
+        const int boxY = y / BOX_SIZE_Y;
+
+        // Gets the local pixel position on the box
+        const int pxlX = x - BOX_SIZE_X * boxX;
+        const int pxlY = y - BOX_SIZE_Y * boxY;
+
+        // Calculates the boxes before the current one
+        int boxesBefore=0;
+
+        // ... before on x axis
+        boxesBefore += boxX * height;
+
+        // ... before on the y axis (if poxel is in downward direction)
+        if((boxX & 1) == 1)
+            boxesBefore += (height - 1) - boxY;
+        
+        // ... before on the y axis (if poxel is upward direction)
+        else
+            boxesBefore += boxY;
+
+        // Calculates the actual pixel
+        int pxl = boxesBefore * (BOX_SIZE_X * BOX_SIZE_Y) + lookUpTable[BOX_SIZE_Y-1 - pxlY][pxlX];
+        
+        setPixel(pxl, clr);
     }
 
     void setup(){

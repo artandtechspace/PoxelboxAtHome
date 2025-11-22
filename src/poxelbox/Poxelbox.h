@@ -1,23 +1,30 @@
 #pragma once
 
 #include <FastLED.h>
+#include "../globalconfig/GlobalConfig.h"
 
 #define BOX_SIZE_X 3
 #define BOX_SIZE_Y 4
 
-#define BOX_AMT_X 25
+#define MAX_BOX_AMT 25
 
-#define LED_AMT BOX_SIZE_X * BOX_SIZE_Y*BOX_AMT_X
+#define LED_AMT BOX_SIZE_X * BOX_SIZE_Y * MAX_BOX_AMT
 
+#define WIDTH GlobalConfig::poxelboxWidth->get() * BOX_SIZE_X
+#define HEIGHT GlobalConfig::poxelboxHeight->get() * BOX_SIZE_Y
 
 namespace Poxelbox {
-    extern const int LED_PIN;
-
-    extern CRGB leds[LED_AMT];
-
     // Initializes the fast-led library and poxelbox connection
     void setup();
 
-    // Returns the actual id from poxel-box-coordinates
-    int getPBId(int x, int y);
+    // Sets a pixel by index on the poxelbox
+    void setPixel(int index, const CRGB& clr);
+
+    /**
+     * Sets the x/y pixel of the box.
+     * (Front view) Coordinate system works from the left bottom (0,0)
+     * (Front view) Cables must run alternating from bottom->top, top->bottom,...
+     *              and must start at (0,0)
+     */
+    void setPixel(int x, int y, const CRGB& clr);
 }

@@ -24,11 +24,11 @@ namespace RandomAnimation {
         
         for(int i=0;i<30;i++){
 
-            Poxelbox::leds[random(0,LED_AMT)] = CHSV(
+            Poxelbox::setPixel(random(0,LED_AMT), CHSV(
                 random(0,255),
                 255,
                 GlobalConfig::globalBrightness->get()
-            );
+            ));
         }
         FastLED.show();
     }

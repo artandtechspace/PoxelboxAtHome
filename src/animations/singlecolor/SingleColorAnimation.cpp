@@ -17,7 +17,7 @@ namespace SingleColorAnimation {
         auto clr = CHSV(hue->get(), saturation->get(), GlobalConfig::globalBrightness->get());
 
         for(int i=0;i<LED_AMT;i++)
-            Poxelbox::leds[i] = clr;
+            Poxelbox::setPixel(i, clr);
 
         FastLED.show();
     }

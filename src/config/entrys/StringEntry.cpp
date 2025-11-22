@@ -32,10 +32,8 @@ const char* StringEntry::get(){
 
 void StringEntry::load() {
     // Loads the data
-    for(int i=0;i<maxLength;i++){
-        if(i==0 || i == maxLength-1)
+    for(int i=0;i<maxLength-1;i++)
         value[i] = EEPROM.readChar(memoryOffset + i);
-    }
 
     // Adds the null terminator
     value[maxLength] = '\0';

@@ -12,6 +12,8 @@ namespace Letterfactory {
     const Letter LETTER_MINUS = {{0,1,0,0},{0,1,0,0},{0,1,0,0},{0,0,0,0},{0,0,0,0}};
     /// Letter _
     const Letter LETTER_UNDERSCORE = {{0,1,0,0},{0,1,0,0},{0,1,0,0},{0,0,0,0},{0,0,0,0}};
+    // Letter ?
+    const Letter LETTER_QUESTIONMARK = {{1,0,0,0}, {1,0,1,1}, {0,1,0,0}, {0,0,0,0}};
 
     // Letter: <Space>
     const Letter LETTER_SPACE = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
@@ -120,6 +122,7 @@ namespace Letterfactory {
             case '-': return &LETTER_MINUS;
             case '_': return &LETTER_UNDERSCORE;
             case ' ': return &LETTER_SPACE;
+            case '?': return &LETTER_QUESTIONMARK;
         }
 
         return &LETTER_UNKNOWN;

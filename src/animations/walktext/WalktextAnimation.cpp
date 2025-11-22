@@ -30,8 +30,10 @@ namespace WaltktextAnimation {
      * Prints the next frame and returns if the word has finished running after the frame
      */
     bool nextFrame(int offset){
-        // Gets the word and height
-        const int height = BOX_SIZE_X * BOX_AMT_X;
+        // Gets the length of available space
+        const int screenLen = WIDTH;
+
+        // Gets the word
         const char* word = text->get();
 
         // Length of the word
@@ -49,10 +51,11 @@ namespace WaltktextAnimation {
             clrText = CHSV(0,0,0);
 
         // Fills the stripe
-        fill_solid(Poxelbox::leds, LED_AMT, clrBack);
+        for(int i=0;i<LED_AMT;i++)
+            Poxelbox::setPixel(i, clrBack);
 
         // Start position of the word to render
-        const int startPos = height - offset;
+        const int startPos = screenLen - offset;
 
         // Pixel used to 
         int currentPixel = 0;
@@ -63,7 +66,7 @@ namespace WaltktextAnimation {
             auto letterLen = Letterfactory::getLetterWidth(letter);
 
             // Optimisation:
-            if(startPos + currentPixel > height) break;
+            if(startPos + currentPixel > screenLen) break;
 
             // Iterates over each x/y pixel of the letter
             for(int x=0;x<letterLen;x++){
@@ -72,13 +75,13 @@ namespace WaltktextAnimation {
                 ++currentPixel;
 
                 if(pixelXPos < 0) continue;
-                if(pixelXPos >= height) break;
+                if(pixelXPos >= screenLen) break;
                 for(int y=0;y<4;y++){
                     // Calculates the id
                     if(!(*letter)[x][y]) continue;
 
                     // Sets the color
-                    Poxelbox::leds[Poxelbox::getPBId(pixelXPos,y)] = clrText;
+                    Poxelbox::setPixel(pixelXPos, 4-1-y, clrText);
                 }
 
             }
@@ -91,7 +94,7 @@ namespace WaltktextAnimation {
         FastLED.show();
 
         // Checks if the text is done and has fully been displayed
-        return height - offset + wordWidth <= 0;
+        return screenLen - offset + wordWidth <= 0;
     }
 
     int offset=0;

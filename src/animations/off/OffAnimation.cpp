@@ -10,7 +10,7 @@ namespace OffAnimation {
 
     void setup() {
         for(int i=0;i<LED_AMT;i++)
-            Poxelbox::leds[i] = 0;
+            Poxelbox::setPixel(i, 0);
 
         FastLED.show();
     }

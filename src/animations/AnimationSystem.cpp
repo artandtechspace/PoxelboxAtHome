@@ -11,6 +11,7 @@
 #include "animations/random/RandomAnimation.h"
 #include "animations/singlecolor/SingleColorAnimation.h"
 #include "animations/walktext/WalktextAnimation.h"
+#include "animations/debug/DebugAnimation.h"
 
 namespace AnimationSystem {
 
@@ -22,6 +23,7 @@ Animation animations[] = {
   {nullptr,                     RandomAnimation::loop,      nullptr},
   {SingleColorAnimation::setup, SingleColorAnimation::loop, SingleColorAnimation::cleanup},
   {WaltktextAnimation::setup,   WaltktextAnimation::loop,   nullptr},
+  {DebugAnimation::setup,       DebugAnimation::loop,       nullptr}
 };
 
 // How many animations are registered
